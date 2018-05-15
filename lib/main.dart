@@ -1,25 +1,20 @@
-import 'package:flutter/material.dart';
+mport 'package:flutter/material.dart';
+
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
-import 'package:firebase_core/firebase_core.dart';
+// import 'package:firebase_core/firebase_core.dart'; not nessecary
 
-final FirebaseApp app = FirebaseApp(
-    options: FirebaseOptions(
-  googleAppID: '1:726207244263:android:098388a432cf4b3b',
-  apiKey: 'AIzaSyBJhfwyQuWBGzhzEgUoOiTWU_Uv_xEHeHo',
-  databaseURL: 'https://example-d8d56.firebaseio.com',
-));
 
-void main() {
-  runApp(MyApp());
-}
+
+void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: "Firebase Example",
-      theme: ThemeData.light(),
+      debugShowCheckedModeBanner: false,
+      title: 'Flutter Demo',
+      theme: ThemeData.dark(),
       home: Home(),
     );
   }
@@ -41,7 +36,7 @@ class HomeState extends State<Home> {
   void initState() {
     super.initState();
     item = Item("", "");
-    final FirebaseDatabase database = FirebaseDatabase(app: app);
+    final FirebaseDatabase database = FirebaseDatabase.instance; //Rather then just writing FirebaseDatabase(), get the instance.  
     itemRef = database.reference().child('items');
     itemRef.onChildAdded.listen(_onEntryAdded);
     itemRef.onChildChanged.listen(_onEntryChanged);
